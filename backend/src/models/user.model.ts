@@ -2,7 +2,7 @@ import { supabase } from "../config/supabase";
 
 export const getAllUserData = async () => {
     const {data, error} = await supabase
-        .from('user')
+        .from('User')
         .select('*')
     if(error){
         throw new  Error(error.message)
