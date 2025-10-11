@@ -1,6 +1,6 @@
 import { supabase } from "../config/supabase";
 
-export const getAllUserData = async () => {
+export const getAllUser = async () => {
     const {data, error} = await supabase
         .from('User')
         .select('*')
