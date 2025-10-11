@@ -4,21 +4,22 @@ import * as UserType from "../types/user.type"
 export const getAllUser = async () => {
     const {data, error} = await supabase
         .from('User')
-        .select('*')
+        .select()
     if(error){
-        throw new  Error(error.message)
+        throw new Error(error.message)
     }
     return data
 }
 
 export const createUser = async (user: UserType.createUser) => {
-    const { error } = await supabase
+    const { data, error } = await supabase
         .from('User')
         .insert(user)
-        .select('*')
+        .select()
     if(error){
-        throw new  Error(error.message)
+        throw new Error(error.message)
     }
+    return data
 }
 
 export const updateUser = async (user_id: number,user_data: UserType.updateUser) => {
@@ -26,9 +27,9 @@ export const updateUser = async (user_id: number,user_data: UserType.updateUser)
         .from('User')
         .update(user_data)
         .eq('user_id',user_id)
-        .select('*')
+        .select()
     if(error){
-        throw new  Error(error.message)
+        throw new Error(error.message)
     }
     return data
 }
@@ -38,9 +39,9 @@ export const deleteUser = async (user_id: number) => {
         .from('User')
         .delete()
         .eq('user_id',user_id)
-        .select('*')
+        .select()
     if(error){
-        throw new  Error(error.message)
+        throw new Error(error.message)
     }
     return data
 }

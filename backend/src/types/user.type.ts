@@ -1,18 +1,18 @@
 export type createUser = {
-    user_name:String
-    user_email:String
-    user_password:String
-    user_tel:String
+    user_name: string
+    user_email: string
+    user_password: string
+    user_tel: string
 }
 
 export type updateUser = {
-    user_name?:String
-    user_email?:String
-    user_password?:String
-    user_tel?:String
-    user_role?:String
+    user_name?: string
+    user_email?: string
+    user_password?: string
+    user_tel?: string
+    user_role?: string
 }
 
 export type userId = {
-    id:number
+    id: number
 }

@@ -25,6 +25,7 @@ export const createUser = async (req: Request<{},{},UserType.createUser>, res: R
             message: 'Created user successfully',
             data: user
         })
+        
     } catch (error: any) {
         res.status(500).json({ 
             message: 'Failed to create user', 
