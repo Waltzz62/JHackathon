@@ -40,10 +40,6 @@ export const updateApplyStatus = async (req: Request<ApplyType.applyId,{},ApplyT
         const apply_id = req.params.id
         const status = req.body.status
         const apply = await ApplyModel.updateApplyStatus(apply_id, status)
-        res.status(200).json({
-            message: 'Update apply successfully',
-            data: apply
-        })
         if(apply[0].apply_status === "accept"){
             try {
                 const staffData: StaffType.createStaff = {
