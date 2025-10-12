@@ -25,7 +25,7 @@ export const createStaff = async (staff: StaffType.createStaff) => {
 export const updateStaff = async (staff_id: number, staff_data: StaffType.updateStaff) => {
     const { data, error } = await supabase
         .from('Staff')
-        .update({staff_data})
+        .update(staff_data)
         .eq('staff_id',staff_id)
     if(error){
         throw new Error(error.message)
