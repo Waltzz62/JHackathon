@@ -27,6 +27,7 @@ export const updateStaff = async (staff_id: number, staff_data: StaffType.update
         .from('Staff')
         .update(staff_data)
         .eq('staff_id',staff_id)
+        .select()
     if(error){
         throw new Error(error.message)
     }
@@ -38,6 +39,7 @@ export const deleteStaff = async (staff_id: number) => {
         .from('Staff')
         .delete()
         .eq('staff_id', staff_id)
+        .select()
     if(error){
         throw new Error(error.message)
     }

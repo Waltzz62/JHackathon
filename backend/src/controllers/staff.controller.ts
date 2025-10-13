@@ -22,6 +22,11 @@ export const updateStaff = async (req: Request<StaffType.staffId, {}, StaffType.
         const staffId = req.params.id
         const staffData = req.body
         const staff = await StaffModel.updateStaff(staffId, staffData)
+        if(!staff || staff.length === 0){
+            res.status(404).json({
+            message: 'Staff not found',
+            })
+        }
         res.status(200).json({
             message: 'Update staff successfully',
             data: staff
@@ -38,6 +43,11 @@ export const deleteStaff = async (req: Request<StaffType.staffId, {}, {}>, res: 
     try {
         const staffId = req.params.id
         const staff = await StaffModel.deleteStaff(staffId)
+        if(!staff || staff.length === 0){
+            res.status(404).json({
+            message: 'Staff not found',
+            })
+        }
         res.status(200).json({
             message: 'Delete staff successfully',
             data: staff

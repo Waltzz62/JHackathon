@@ -39,7 +39,7 @@ export const updateUser = async (req: Request<UserType.userId, {}, UserType.upda
         const user_id = req.params.id
         const data = req.body
         const user = await UserModel.updateUser(user_id,data)
-        if(!user){
+        if(!user || user.length === 0){
             return res.status(404).json({
                 message: 'User not found'
             })
@@ -60,7 +60,7 @@ export const deleteUser = async (req: Request<UserType.userId,{},{}>, res: Respo
     try {
         const user_id = req.params.id
         const user = await UserModel.deleteUser(user_id)
-        if(!user){
+        if(!user || user.length === 0){
             return res.status(404).json({
                 message: 'User not found'
             })

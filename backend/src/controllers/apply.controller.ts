@@ -40,6 +40,11 @@ export const updateApplyStatus = async (req: Request<ApplyType.applyId,{},ApplyT
         const apply_id = req.params.id
         const status = req.body.status
         const apply = await ApplyModel.updateApplyStatus(apply_id, status)
+        if(!apply || apply.length === 0){
+            res.status(404).json({
+            message: 'Apply not found',
+            })
+        }
         if(apply[0].apply_status === "accept"){
             try {
                 const staffData: StaffType.createStaff = {
