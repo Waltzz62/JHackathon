@@ -3,6 +3,7 @@ import * as ApplyModel from "../models/apply.model"
 import * as ApplyType from "../types/apply.type"
 import * as StaffModel from "../models/staff.model"
 import * as StaffType from "../types/staff.type"
+import * as UserModel from "../models/user.model"
 
 export const getAllApply = async (req: Request, res: Response) => {
     try {
@@ -48,11 +49,12 @@ export const updateApplyStatus = async (req: Request<ApplyType.applyId,{},ApplyT
         if(apply[0].apply_status === "accept"){
             try {
                 const staffData: StaffType.createStaff = {
-                staff_bio: apply[0].apply_bio, 
-                staff_special: apply[0].apply_special,
-                user_id: apply[0].user_id
+                    staff_bio: apply[0].apply_bio, 
+                    staff_special: apply[0].apply_special,
+                    user_id: apply[0].user_id
                 }
                 const staff = await StaffModel.createStaff(staffData)
+                await UserModel.updateUser(staffData.user_id, { user_role: "staff" })
                 res.status(200).json({
                     message: 'Create staff successfully',
                     data: staff
