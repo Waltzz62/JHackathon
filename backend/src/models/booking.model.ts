@@ -1,27 +1,30 @@
 import { supabase } from "../config/supabase";
 import * as BookingType from "../types/booking.type";
 
-export const createBooking = async ( data: BookingType.createBooking ) => {
-    const { error } = await supabase
+export const createBooking = async (data: BookingType.createBooking) => {
+    const { data: booking, error } = await supabase
         .from('Booking')
         .insert(data)
-    if(error){
+        .select()
+        .single()
+    if (error) {
         throw new Error(error.message)
     }
-    return data
+    return booking
 }
 
 export const getAllBooking = async () => {
     const {data, error} = await supabase
         .from('Booking')
         .select(`
-            user_name,
+            user_id,
             nums_student,
             status,
             notes,
             schedule : Schedule!inner (
                 status,
-                schedule_date,
+                start_time,
+                end_time,
                 class:Class!inner (
                     class_title,
                     class_duration,
@@ -39,13 +42,14 @@ export const getBookingById = async ( userId:number) => {
     const {data, error} = await supabase
       .from('Booking')
         .select(`
-            user_name,
+            user_id,
             nums_student,
             status,
             notes,
             schedule : Schedule!inner (
                 status,
-                schedule_date,
+                start_time,
+                end_time,
                 class:Class!inner (
                     class_title,
                     class_duration,
@@ -60,17 +64,19 @@ export const getBookingById = async ( userId:number) => {
     return data || []
 }
 
-export const updateBookingById = async (booking_id: number , booking_data : BookingType.updateBooking) => {
-    const {data, error} = await supabase
+export const updateBookingById = async (booking_id: number, booking_data: BookingType.updateBooking) => {
+    const { schedule_id, ...safeData } = booking_data as any
+    const { data, error } = await supabase
         .from('Booking')
-        .update(booking_data)
-        .eq('booking_id', booking_id )
+        .update(safeData)
+        .eq('booking_id', booking_id)
         .select('*')
-    if(error){
+        .single()
+    
+    if (error) {
         throw new Error(error.message)
     }
     return data
-
 }
 
 export const deleteBookingById = async (booking_id: number) => {

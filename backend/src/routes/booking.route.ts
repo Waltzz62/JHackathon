@@ -8,3 +8,5 @@ bookingRouter.get('/bookings', bookingController.getAllBooking)
 bookingRouter.get('/booking/:user_id', bookingController.getBookingById)
 bookingRouter.put('/update/:booking_id', bookingController.updateBooking)
 bookingRouter.delete('/delete/:booking_id', bookingController.deleteBooked)
+
+export default bookingRouter
