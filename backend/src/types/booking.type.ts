@@ -1,11 +1,9 @@
 export type createBooking = {
-    booking_id:number
     user_id:number
-    user_name:string
     schedule_id:number
     nums_student:number
-    status:string
-    notes:string
+    status?:string
+    notes?:string
 }
 
 export type getBookedBooking = {
@@ -45,3 +43,7 @@ export type updateBooking = {
     notes?:string
 }
 
+export type checkavai = {
+    max_student:number
+    current_student:number
+}
