@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const API_URL = import.meta.env.VITE_API_URL || "https://jhback.vercel.app/api";
 
 async function fetchApi<T>(
   endpoint: string,
