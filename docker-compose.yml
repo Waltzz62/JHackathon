@@ -1,18 +1,20 @@
 version: '3.8'
 
 services:
-  backend:
-    build: ./backend
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-    env_file:
-      - ./backend/.env
+  # เปลี่ยนเป็น Service เดียวที่รันทั้ง Frontend และ Backend
+  fullstack-app:
+    # ชี้คำสั่ง build ไปที่ไดเรกทอรีปัจจุบัน (รูท) 
+    # ซึ่งเป็นที่ที่ Dockerfile ฉบับรวมอยู่
+    build: .
 
-  frontend:
-    build: ./frontend
+เปิดเผยพอร์ตหลัก (Nginx/Frontend) และพอร์ต Backend
+Nginx รันบน 80 และจะ Proxy API ไปยัง Node.js ที่รันบน 3000
     ports:
-      - "80:80"
-    depends_on:
-      - backend
+      
+"80:80"
+"3000:3000"
+# กำหนด Environment Variables
+environment:
+  NODE_ENV: production# หากต้องการใช้ไฟล์ .env # (ต้องแน่ใจว่าไฟล์ .env อยู่ที่ไดเรกทอรีรูท)
+env_file:
+.env
