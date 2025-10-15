@@ -1,0 +1,24 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const auth_route_1 = __importDefault(require("./auth.route"));
+const user_route_1 = __importDefault(require("./user.route"));
+const class_route_1 = __importDefault(require("./class.route"));
+const apply_route_1 = __importDefault(require("./apply.route"));
+const staff_route_1 = __importDefault(require("./staff.route"));
+const schedule_route_1 = __importDefault(require("./schedule.route"));
+const booking_route_1 = __importDefault(require("./booking.route"));
+const chat_route_1 = __importDefault(require("./chat.route"));
+const mainRouter = express_1.default.Router();
+mainRouter.use('/auth', auth_route_1.default);
+mainRouter.use('/user', user_route_1.default);
+mainRouter.use('/class', class_route_1.default);
+mainRouter.use('/apply', apply_route_1.default);
+mainRouter.use('/staff', staff_route_1.default);
+mainRouter.use('/schedule', schedule_route_1.default);
+mainRouter.use('/booking', booking_route_1.default);
+mainRouter.use('/chat', chat_route_1.default);
+exports.default = mainRouter;
