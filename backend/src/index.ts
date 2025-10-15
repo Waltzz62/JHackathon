@@ -3,21 +3,17 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import { supabase } from './config/supabase'
 import mainRouter from './routes/index.route'
-import { VercelRequest, VercelResponse } from '@vercel/node'
 
 dotenv.config()
 
 const app = express()
 
-app.use(
-  cors({
-    origin:
-      process.env.NODE_ENV === 'production'
-        ? ['http://localhost']
-        : ['http://localhost:5173'],
-    credentials: true,
-  })
-)
+app.use(cors({
+  origin: ['https://jhfront.vercel.app'], // 👈 allow your frontend domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}))
 
 app.use(express.json())
 
@@ -27,8 +23,8 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/api', mainRouter)
 
-// Handle favicon.ico requests
+// Handle favicon.ico
 app.get('/favicon.ico', (req, res) => res.status(204).end())
 
-// Export default for Vercel
-export default (req: VercelRequest, res: VercelResponse) => app(req, res)
+// ✅ Export Express app (not wrapped function)
+export default app

@@ -10,9 +10,9 @@ const index_route_1 = __importDefault(require("./routes/index.route"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
-    origin: process.env.NODE_ENV === 'production'
-        ? ['http://localhost']
-        : ['http://localhost:5173'],
+    origin: ['https://jhfront.vercel.app'], // 👈 allow your frontend domain
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
 }));
 app.use(express_1.default.json());
@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
     res.json({ message: 'Server is running' });
 });
 app.use('/api', index_route_1.default);
-// Handle favicon.ico requests
+// Handle favicon.ico
 app.get('/favicon.ico', (req, res) => res.status(204).end());
-// Export default for Vercel
-exports.default = (req, res) => app(req, res);
+// ✅ Export Express app (not wrapped function)
+exports.default = app;
