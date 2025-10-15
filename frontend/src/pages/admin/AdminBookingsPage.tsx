@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { bookingsApi } from '../../lib/api';
-import { Calendar, Users, Clock } from 'lucide-react';
+import { Users } from 'lucide-react';
 
 export function AdminBookingsPage() {
   const queryClient = useQueryClient();

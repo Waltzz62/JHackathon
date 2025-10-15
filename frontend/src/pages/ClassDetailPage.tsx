@@ -28,7 +28,7 @@ export function ClassDetailPage() {
 
   const bookingMutation = useMutation({
     mutationFn: bookingsApi.create,
-    onSuccess: (data: any) => {
+    onSuccess: () => {
       setSelectedSchedule('');
       setNumberOfPeople(1);
       setNotes('');
