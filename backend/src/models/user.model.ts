@@ -1,5 +1,6 @@
 import { supabase } from "../config/supabase";
 import * as UserType from "../types/user.type"
+import { hashPassword } from "../middleware/hash";
 
 export const getAllUser = async () => {
     const {data, error} = await supabase
@@ -12,14 +13,21 @@ export const getAllUser = async () => {
 }
 
 export const createUser = async (user: UserType.createUser) => {
-    const { data, error } = await supabase
-        .from('User')
-        .insert(user)
-        .select()
-    if(error){
-        throw new Error(error.message)
-    }
-    return data
+  const hash = await hashPassword(user.user_password)
+  const newUser = {
+    ...user,
+    user_password: hash
+  }
+  const { data, error } = await supabase
+    .from('User')
+    .insert([newUser])
+    .select()
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return data
 }
 
 export const updateUser = async (user_id: number,user_data: UserType.updateUser) => {

@@ -1,4 +1,5 @@
 import express from 'express'
+import authRouter from './auth.route'
 import userRouter from './user.route'
 import classRouter from './class.route'
 import applyRouter from './apply.route'
@@ -9,6 +10,7 @@ import chatRouter from './chat.route'
 
 const mainRouter = express.Router()
 
+mainRouter.use('/auth', authRouter)
 mainRouter.use('/user', userRouter)
 mainRouter.use('/class', classRouter)
 mainRouter.use('/apply', applyRouter)

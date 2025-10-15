@@ -1,35 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route } from 'react-router-dom';
+import { Layout } from './components/Layout.tsx';
+import { ProtectedRoute } from './components/ProtectedRoute.tsx';
+
+// Pages
+import { HomePage } from './pages/HomePage.tsx';
+import { LoginPage } from './pages/LoginPage.tsx';
+import { RegisterPage } from './pages/RegisterPage.tsx';
+import { ClassesPage } from './pages/ClassesPage.tsx';
+import { ClassDetailPage } from './pages/ClassDetailPage.tsx';
+import { MyBookingsPage } from './pages/MybookingsPage';
+import { StaffApplicationPage } from './pages/StaffApplicationPage';
+
+// Admin Pages
+import { AdminDashboard } from './pages/admin/AdminDashboard.tsx';
+import { AdminClassesPage } from './pages/admin/AdminClassesPage.tsx';
+import { AdminSchedulesPage } from './pages/admin/AdminSchedulesPage.tsx';
+import { AdminStaffPage } from './pages/admin/AdminStaffPage.tsx';
+import { AdminApplicationsPage } from './pages/admin/AdminApplicationsPage.tsx';
+import { AdminBookingsPage } from './pages/admin/AdminBookingsPage.tsx';
+
+// Staff Pages
+import { StaffDashboard } from './pages/staff/StaffDashboard.tsx';
+import { StaffSchedulesPage } from './pages/staff/StaffSchedulesPage.tsx';
+import { StaffChatPage } from './pages/staff/StaffChatPage.tsx';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/classes" element={<ClassesPage />} />
+        <Route path="/classes/:id" element={<ClassDetailPage />} />
+        
+        <Route element={<ProtectedRoute />}>
+          <Route path="/my-bookings" element={<MyBookingsPage />} />
+          <Route path="/apply-staff" element={<StaffApplicationPage />} />
+        </Route>
+
+        <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/classes" element={<AdminClassesPage />} />
+          <Route path="/admin/schedules" element={<AdminSchedulesPage />} />
+          <Route path="/admin/staff" element={<AdminStaffPage />} />
+          <Route path="/admin/applications" element={<AdminApplicationsPage />} />
+          <Route path="/admin/bookings" element={<AdminBookingsPage />} />
+        </Route>
+
+        <Route element={<ProtectedRoute allowedRoles={['staff']} />}>
+          <Route path="/staff" element={<StaffDashboard />} />
+          <Route path="/staff/schedules" element={<StaffSchedulesPage />} />
+          <Route path="/staff/chat" element={<StaffChatPage />} />
+        </Route>
+      </Route>
+    </Routes>
+  );
 }
 
-export default App
+export default App;

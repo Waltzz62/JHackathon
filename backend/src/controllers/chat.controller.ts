@@ -7,8 +7,8 @@ const url: string | undefined = process.env.CHAT_API_URL!
 
 export const getRecipe = async (req: Request, res: Response) => {
   if (!url) {
-    console.error("CHATBOT_API_URL environment variable is not set.");
-    return res.status(500).json({ message: "Server configuration error: CHATBOT_API_URL is missing." });
+    console.error("CHAT_API_URL environment variable is not set.");
+    return res.status(500).json({ message: "Server configuration error: CHAT_API_URL is missing." });
   }
   try {
     const response = await fetch(url, {
