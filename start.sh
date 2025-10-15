@@ -1,11 +1,14 @@
-echo "Building frontend"
-cd frontend
-npm i
-npm run build
-cd..
+#!/bin/bash
 
-echo "Building backend"
-cd backend
-npm i
+# 1. Build Frontend
+echo "Starting Frontend Build..."
+cd frontend
+npm install
 npm run build
-cd ..
+cd ..  # <<< ต้องมีช่องว่าง!
+
+# 2. Build/Start Backend
+echo "Starting Backend..."
+cd backend
+npm install
+npm start # หรือ npm run serve
